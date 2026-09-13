@@ -1,0 +1,21 @@
+# api/.htaccess — route all to index.php, protect, performance
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+# security: deny direct access to config
+<FilesMatch "^(env\.php|db\.php)$">
+  Require all denied
+</FilesMatch>
+
+# performance: cache static uploads 1 month
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+</IfModule>
+
+# limit upload size 4M
+LimitRequestBody 4194304

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پنل مدیریت آرک‌بس</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232ECC71'/%3E%3Cstop offset='1' stop-color='%231ABC9C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='13' fill='url(%23g)'/%3E%3Cpath d='M13 34h7V18h-7zM20.5 34h7V11h-7zM28 34h7V24h-7z' fill='%23fff'/%3E%3Cpath d='M36.5 14c-4.4.6-6.4 3-6.9 6.9 3.9-.5 6.3-2.5 6.9-6.9z' fill='%23F1C40F'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="admin-body">
+  <div class="admin">
+    <aside class="admin-side" id="adminSide">
+      <div class="admin-side__head">
+        <svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true" style="flex-shrink:0;">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ECC71"/><stop offset="1" stop-color="#1ABC9C"/></linearGradient></defs>
+          <rect width="48" height="48" rx="13" fill="url(#lg)"/>
+          <path d="M13 34h7V18h-7zM20.5 34h7V11h-7zM28 34h7V24h-7z" fill="#fff"/>
+          <path d="M36.5 14c-4.4.6-6.4 3-6.9 6.9 3.9-.5 6.3-2.5 6.9-6.9z" fill="#F1C40F"/>
+        </svg>
+        <span class="logo__text">آرک<span style="color:#7bf0ce;">بس</span></span>
+      </div>
+
+      <div class="admin-side__user">
+        <span class="avatar">س</span>
+        <div><strong>سینا محمدی</strong><span>مدیر سیستم</span></div>
+      </div>
+
+      <nav class="admin-nav">
+        <button class="active" data-view="dashboard"><i class="fa-solid fa-gauge-high"></i> داشبورد</button>
+        <button data-view="users"><i class="fa-solid fa-users"></i> کاربران ثبت‌نامی <span class="badge" data-badge="users">0</span></button>
+        <button data-view="consult"><i class="fa-solid fa-headset"></i> درخواست مشاوره <span class="badge" data-badge="consult">0</span></button>
+        <button data-view="webinars"><i class="fa-solid fa-chalkboard-user"></i> شرکت‌کنندگان وبینار <span class="badge" data-badge="webinars">0</span></button>
+        <button data-view="messages"><i class="fa-solid fa-envelope"></i> پیام‌ها <span class="badge" data-badge="messages">0</span></button>
+        <button data-view="gallery"><i class="fa-solid fa-images"></i> مدیریت گالری <span class="badge" data-badge="gallery">9</span></button>
+        <button data-view="posts"><i class="fa-solid fa-newspaper"></i> مدیریت بلاگ <span class="badge" data-badge="posts">0</span></button>
+        <button data-view="logs"><i class="fa-solid fa-list-check"></i> گزارشات و لاگ <span class="badge" data-badge="logs">0</span></button>
+        <button data-view="settings"><i class="fa-solid fa-gear"></i> تنظیمات</button>
+      </nav>
+
+      <div class="admin-side__foot">
+        <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> خروج از سیستم</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <h1 id="viewTitle">داشبورد مدیریت</h1>
+          <p id="viewSub">نمای کلی فعالیت‌های آرک‌بس</p>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <span class="admin-topbar__date" id="todayJalali"></span>
+          <button class="admin-side-toggle" id="sideToggle"><i class="fa-solid fa-bars"></i> منو</button>
+        </div>
+      </div>
+
+      <!-- ============ Dashboard ============ -->
+      <section class="admin-view active" id="view-dashboard">
+        <div class="admin-stats" id="dashStats"></div>
+        <div class="admin-grid-2">
+          <div class="admin-card">
+            <h3>کاربران و درخواست‌های ماه‌های اخیر <a href="#" data-goto="users">مشاهده همه</a></h3>
+            <div class="bar-chart" id="dashChart"></div>
+          </div>
+          <div class="admin-card">
+            <h3>آخرین فعالیت‌ها</h3>
+            <div id="dashActivity"></div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>آخرین درخواست‌های مشاوره <a href="#" data-goto="consult">مشاهده همه</a></h3>
+          <div class="admin-table-wrap" style="box-shadow:none;border:none;padding:0;border-radius:0;">
+            <table class="admin-table">
+              <thead><tr><th>نام</th><th>نوع درخواست</th><th>تاریخ</th><th>وضعیت</th></tr></thead>
+              <tbody id="dashRecentConsult"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Users ============ -->
+      <section class="admin-view" id="view-users">
+        <div class="admin-pagehead">
+          <div>
+            <h2>کاربران ثبت‌نامی <span class="admin-count" id="usersCount"></span></h2>
+            <p>همه اشخاصی که در سایت ثبت‌نام کرده‌اند.</p>
+          </div>
+          <button class="btn btn--primary btn--sm" id="addUserBtn"><i class="fa-solid fa-user-plus"></i><span>افزودن کاربر</span></button>
+        </div>
+        <div class="admin-searchbar">
+          <div class="gal-admin__search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="usersSearch" placeholder="جستجو در نام، موبایل یا ایمیل...">
+          </div>
+          <div class="chip-row" id="usersChips">
+            <button class="chip active" data-ufilter="all">همه</button>
+            <button class="chip" data-ufilter="active">فعال</button>
+            <button class="chip" data-ufilter="blocked">مسدود</button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>کاربر</th><th>موبایل</th><th>ایمیل</th><th>تاریخ عضویت</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+            <tbody id="usersTbody"></tbody>
+          </table>
+          <div class="empty-state" id="usersEmpty" hidden><i class="fa-solid fa-users-slash"></i><p>کاربری یافت نشد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Consultations ============ -->
+      <section class="admin-view" id="view-consult">
+        <div class="admin-pagehead">
+          <div>
+            <h2>درخواست‌های مشاوره <span class="admin-count" id="consultCount"></span></h2>
+            <p>درخواست‌های ارسال‌شده از فرم مشاوره سایت.</p>
+          </div>
+          <div class="chip-row" id="consultChips">
+            <button class="chip active" data-cfilter="all">همه</button>
+            <button class="chip" data-cfilter="new">جدید</button>
+            <button class="chip" data-cfilter="process">در حال بررسی</button>
+            <button class="chip" data-cfilter="done">انجام‌شده</button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>نام</th><th>شماره</th><th>نوع درخواست</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+            <tbody id="consultTbody"></tbody>
+          </table>
+          <div class="empty-state" id="consultEmpty" hidden><i class="fa-solid fa-inbox"></i><p>درخواستی یافت نشد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Webinar participants ============ -->
+      <section class="admin-view" id="view-webinars">
+        <div class="admin-pagehead">
+          <div>
+            <h2>شرکت‌کنندگان وبینار <span class="admin-count" id="webinarsCount"></span></h2>
+            <p>ثبت‌نام‌کنندگان و حاضران وبینارهای آرک‌بس.</p>
+          </div>
+          <div class="chip-row" id="webChips">
+            <button class="chip active" data-wfilter="all">همه</button>
+            <button class="chip" data-wfilter="joined">حضور یافته</button>
+            <button class="chip" data-wfilter="registered">ثبت‌نام کرده</button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>نام</th><th>ایمیل</th><th>وبینار</th><th>تاریخ ثبت‌نام</th><th>وضعیت حضور</th><th>عملیات</th></tr></thead>
+            <tbody id="webinarsTbody"></tbody>
+          </table>
+          <div class="empty-state" id="webinarsEmpty" hidden><i class="fa-solid fa-user-xmark"></i><p>شرکت‌کننده‌ای یافت نشد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Messages ============ -->
+      <section class="admin-view" id="view-messages">
+        <div class="admin-pagehead">
+          <div>
+            <h2>پیام‌های تماس <span class="admin-count" id="messagesCount"></span></h2>
+            <p>پیام‌های ارسال‌شده از فرم تماس با ما.</p>
+          </div>
+          <button class="btn btn--ghost btn--sm" id="readAllBtn"><i class="fa-solid fa-envelope-open-text"></i><span>خواندن همه</span></button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>فرستنده</th><th>موضوع</th><th>تاریخ</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+            <tbody id="messagesTbody"></tbody>
+          </table>
+          <div class="empty-state" id="messagesEmpty" hidden><i class="fa-solid fa-envelope-open"></i><p>پیامی وجود ندارد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Gallery ============ -->
+      <section class="admin-view" id="view-gallery">
+        <div class="admin-pagehead">
+          <div>
+            <h2>مدیریت گالری <span class="admin-count" id="galleryCount"></span></h2>
+            <p>آپلود، مشاهده اسلایدی، ویرایش و حذف تصاویر گالری.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn--ghost btn--sm" id="galSlideAll"><i class="fa-solid fa-play"></i><span>نمایش اسلایدی همه</span></button>
+            <button class="btn btn--primary btn--sm" id="galUploadBtn"><i class="fa-solid fa-cloud-arrow-up"></i><span>آپلود تصویر</span></button>
+            <input type="file" id="galUpload" accept="image/*" multiple hidden>
+          </div>
+        </div>
+        <div class="gal-admin__toolbar">
+          <div class="gal-admin__search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="galSearch" placeholder="جستجو در عنوان تصاویر...">
+          </div>
+          <div class="chip-row" id="galChips"></div>
+        </div>
+        <div class="gal-admin-grid" id="galGrid"></div>
+        <div class="empty-state" id="galEmpty" hidden><i class="fa-solid fa-images"></i><p>تصویری یافت نشد. یک تصویر آپلود کنید.</p></div>
+      </section>
+
+      <!-- ============ Blog Posts ============ -->
+      <section class="admin-view" id="view-posts">
+        <div class="admin-pagehead">
+          <div>
+            <h2>مدیریت بلاگ و مقالات <span class="admin-count" id="postsCount"></span></h2>
+            <p>افزودن، ویرایش و حذف مقالات — نمایش در /blog.html</p>
+          </div>
+          <button class="btn btn--primary btn--sm" id="addPostBtn"><i class="fa-solid fa-plus"></i><span>افزودن مقاله</span></button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>عنوان</th><th>دسته</th><th>اسلاگ</th><th>تاریخ</th><th>عملیات</th></tr></thead>
+            <tbody id="postsTbody"></tbody>
+          </table>
+          <div class="empty-state" id="postsEmpty" hidden><i class="fa-solid fa-newspaper"></i><p>مقاله‌ای یافت نشد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Logs ============ -->
+      <section class="admin-view" id="view-logs">
+        <div class="admin-pagehead">
+          <div>
+            <h2>گزارشات و لاگ سیستم <span class="admin-count" id="logsCount"></span></h2>
+            <p>تمام درخواست‌ها، ورودها و عملیات — فایل: storage_app.log + جدول logs</p>
+          </div>
+          <button class="btn btn--ghost btn--sm" id="refreshLogsBtn"><i class="fa-solid fa-rotate"></i><span>بروزرسانی</span></button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>زمان</th><th>کاربر</th><th>عملیات</th><th>جزئیات</th><th>IP</th></tr></thead>
+            <tbody id="logsTbody"></tbody>
+          </table>
+          <div class="empty-state" id="logsEmpty" hidden><i class="fa-solid fa-list-check"></i><p>لاگی یافت نشد.</p></div>
+        </div>
+      </section>
+
+      <!-- ============ Settings ============ -->
+      <section class="admin-view" id="view-settings">
+        <div class="admin-card" style="margin-bottom:22px;">
+          <h3>پروفایل مدیریت</h3>
+          <form class="admin-form" id="profileForm" novalidate>
+            <div class="admin-form-grid">
+              <div class="form-field"><label for="setName">نام و نام خانوادگی</label><input type="text" id="setName" value="سینا محمدی"></div>
+              <div class="form-field"><label for="setEmail">ایمیل</label><input type="email" id="setEmail" value="admin@arcbes.ir" dir="ltr"></div>
+              <div class="form-field"><label for="setPhone">شماره تماس</label><input type="tel" id="setPhone" value="021-88776543" dir="ltr"></div>
+              <div class="form-field"><label for="setRole">نقش کاربری</label><select id="setRole"><option>مدیر سیستم</option><option>ادیتور محتوا</option><option>پشتیبان</option></select></div>
+            </div>
+            <div class="admin-actions"><button type="submit" class="btn btn--primary btn--sm"><span>ذخیره تغییرات</span></button></div>
+          </form>
+        </div>
+        <div class="admin-grid-3">
+          <div class="admin-card">
+            <h3>اعلان‌ها</h3>
+            <label class="auth-check"><input type="checkbox" id="setNotif1" checked> ایمیل درخواست‌های جدید</label>
+            <label class="auth-check"><input type="checkbox" id="setNotif2" checked> پیامک ثبت‌نام وبینار</label>
+            <label class="auth-check"><input type="checkbox" id="setNotif3"> گزارش هفتگی خلاصه</label>
+            <div class="admin-actions"><button class="btn btn--primary btn--sm" id="saveNotifBtn"><span>ذخیره</span></button></div>
+          </div>
+          <div class="admin-card">
+            <h3>امنیت</h3>
+            <label class="auth-check"><input type="checkbox" id="setSec1" checked> ورود دومرحله‌ای اجباری</label>
+            <label class="auth-check"><input type="checkbox" id="setSec2" checked> قفل بعد از ۵ خطا</label>
+            <label class="auth-check"><input type="checkbox" id="setSec3"> محدودیت IP آدرس</label>
+            <div class="admin-actions"><button class="btn btn--primary btn--sm" id="saveSecBtn"><span>ذخیره</span></button></div>
+          </div>
+          <div class="admin-card">
+            <h3>سایت</h3>
+            <label class="auth-check"><input type="checkbox" id="setSite1" checked> حالت نگهداری (Maintenance)</label>
+            <label class="auth-check"><input type="checkbox" id="setSite2" checked> فعال بودن ربات گفتگو</label>
+            <label class="auth-check"><input type="checkbox" id="setSite3" checked> ایندکس در موتورهای جستجو</label>
+            <div class="admin-actions"><button class="btn btn--primary btn--sm" id="saveSiteBtn"><span>ذخیره</span></button></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="adminToast" class="toast" role="status"><i class="fa-solid fa-circle-check"></i><span></span></div>
+
+  <script src="../assets/js/slideshow.js"></script>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /login.html
+Disallow: /register.html
+
+Sitemap: https://arcbes.ir/sitemap.xml

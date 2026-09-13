@@ -1,0 +1,30 @@
+# فایل‌های سیستم و IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.log
+
+# فایل‌های لاگ
+storage_*.log
+*.log
+
+# پوشه‌های وابستگی
+node_modules/
+vendor/
+
+# فایل‌های موقت
+/tmp/
+/uploads/tmp/
+
+# فایل‌های محیطی (در هاست جداگانه تنظیم می‌شوند)
+.env
+env.php.local
+
+# فایل‌های compiled
+*.pyc
+__pycache__/
+
+# تست‌ها
+loadtest.py
